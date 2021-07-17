@@ -17,42 +17,44 @@
     </head>
 
     <body>
-        <header class="container">
-            Weather Dashboard
+        <header class="container-fluid">
+            <h1>Weather Dashboard</h1>
         </header>
         
-        <main class="container">
-            <div class="row">
-                <div class="a col-12 col-md-4">
-                    <form id="search-form">
-                        <label>Search for the city</label>
-                        <input type="text" name="city" id="city" placeholder="Enter the city"></input>
-                        <button id="search">Search</button>
+        <main class="container-fluid">
+            <div class="row main-row">
+                <div class="col-12 col-md-4">
+                <form id="search-form" class="form-group" >
+                    <h3>Search for a city</h3>
+                    <input type="text" class="form-control" name="city" id="city" placeholder="Enter the city"></input>
+                    <button id="search" class="btn btn-secondary btn-sm">Search</button>
 
-                        <div></div>
-                    </form>
-                </div>
-
-                <div class="b col-12 col-md-8">
-                   <h2 id="cityName">Name of the city</h2>
-                   <p>Temperature</p>
-                   <p>Wind</p>
-                   <p>Humidity</p>
-                   <p>UV Index</p>
-                   <div>Five Day Forecast</div>
-                   <div class="row">
-                       <div class ="a"> abc</div>
-                       <div class ="a"> cde</div>
-                       <div class ="a"> dfdf</div>
-                       <div class ="a">dfdf </div>
-                       <div class ="a">dfdf </div>
-                   </div>
+                    <div></div>
+                </form>
+            </div>
+                <div class="b col-12 col-md-8" id="display-sec">
+                  
                 </div>
             </div>
         </main>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
         <script src="assets/js/script.js"></script>
     </body>
     
 </html>
+
+ <!-- <h2 id="cityName">Name of the city</h2>
+                   <p>Temperature</p>
+                   <p>Wind</p>
+                   <p>Humidity</p>
+                   <p>UV Index</p> -->
+                   <!-- <div>Five Day Forecast</div>
+                   <div class="row">
+                       <div class ="a"> abc</div>
+                       <div class ="a"> cde</div>
+                       <div class ="a"> dfdf</div>
+                       <div class ="a">dfdf </div>
+                       <div class ="a">dfdf </div>
+                   </div> -->

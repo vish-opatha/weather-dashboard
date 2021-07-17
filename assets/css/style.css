@@ -2,24 +2,56 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
     line-height: 1;
+    /* text-align: center; */
     /* margin-left: 5%;
     margin-right: 5%; */
 }
 
+main{
+    /* text-align: center; */
+    margin-left:5%;
+    margin-right:5%
+}
+
+form{
+    margin-right:5px;
+
+}
+
 header{
-    margin:0;
-    height:40px;
-    width:100%;
-    background-color: rgb(59, 143, 70);
+    height:60px;
+    background-color: rgb(36, 122, 118);
+    text-align: center;   
+}
+.main-row{
+    margin-left:10px;
+    margin-right:10px;
+}
+
+h1{
+    padding-top:5px; padding-bottom: 5px;
+    color:cornsilk;
 }
 .a,.b{
     border:1px solid blue;
     
 }
 
-input,label, button{
+input,h3, button{
+    
     display:block;
+    /* width:100%; */
+    margin-top:4px;
+    margin-bottom: 4px;
+}
+
+input{
     width:100%;
+}
+
+button{
+    width: 100%;
+    text-align:center;
 }
 
 /* #search-form
@@ -27,10 +59,10 @@ input,label, button{
 
 } */
 
-main{
+/* main{
     margin-left: 5%;
     margin-right: 5%;
-}
+} */
 #search-form div{
     border-top: 1px solid blue;
 }
