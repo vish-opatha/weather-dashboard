@@ -1,4 +1,4 @@
-
+var APIKey="975b6c913fd1bac8d093c8550b538f26";
 var searchCityInput = $('input[name="city"]');
 var searchBtn =$('#search');
 //var cityLatitute = 0;
@@ -15,9 +15,13 @@ var cloud;
 var weatherCon;
 var todayDate=moment().format("DD/MM/YYYY");
 
-var currentWeather=[];
+var headerCity=$('#header-tag');
+var tempSpan=$('#temp');
+var windSpan=$('#wind');
+var humiditySpan=$('#humidity');
+var uviSpan=$('#uvi');
 
-
+var currentWeatherData=[];
 
 //########## Connect to the API and obtain weather data on the click event ###########
 searchBtn.on('click',function(event)
@@ -33,7 +37,7 @@ searchBtn.on('click',function(event)
     else
     {
         getCurrentWeather(searchTerm);
-        //getWeatherForecast(searchTerm);
+        getWeatherForecast(searchTerm);
         
         //displayCurrentWeather();
     }
@@ -60,9 +64,10 @@ function getCurrentWeather(searchTerm)
                         
                         cityLatitute = JSON.stringify(data.coord.lat);
                         cityLongitude= JSON.stringify(data.coord.lon);
+                        saveCurrentWeatherData(searchTerm);
                         
                         getUVIndex(cityLatitute,cityLongitude);
-                        console.log(uvIndex);
+                        
 
                         displayCurrentWeather(searchTerm,temp,wind,humidity,weatherCon,uvIndex);
 
@@ -90,47 +95,53 @@ function getCurrentWeather(searchTerm)
             });
            
 }
-
+var count=0;
 function displayCurrentWeather(city,temp,wind,humidity,weatherCon,uvIndex)
 {
-    var cityH2=$('<h2>');
-    var temperatureP=$('<p>');
-    var windP=$('<p>');
-    var humidityP=$('<p>');
-    var uviP=$('<p>');
 
-                        
-                        //=================
+   
+    headerCity.text(city + todayDate+ weatherCon);
+    tempSpan.text(temp);
+    windSpan.text(wind);
+    humiditySpan.text(humidity);
+   
+    var cityButton=$('<button>');
+    cityButton.text(city);
+    cityButton.attr("city",city);
+    cityButton.addClass('btn btn-secondary btn-sm');
+
+  
+    var buttons=$('#search-history');
+
+   
+    buttons.append(cityButton);
     
-    cityH2.text(city + todayDate+ weatherCon);
-    temperatureP.text("Temperature : "+temp);
-    windP.text("Wind :"+wind+" MPH");
-    humidityP.text("Humidity :"+humidity+"%");
-    uviP.text("UV Index :"+uvIndex);
+}
 
-    
-    weatherDisplay.append(cityH2);
-    weatherDisplay.append(temperatureP);
-    weatherDisplay.append(windP);
-    weatherDisplay.append(humidityP);
-    weatherDisplay.append(uviP);
+function saveCurrentWeatherData(city)
+{
+    var cityToLowerCase = city.toLowerCase();
+    var weatherData=temp+","+wind+","+humidity+","+weatherCon;
+    var cityToLowerCase = [];
+    cityToLowerCase.push(weatherData);
+    currentWeatherData.push(city);
 
-
-
-
+    localStorage.setItem(city,JSON.stringify(cityToLowerCase));
+    localStorage.setItem('currentWeatherCity',JSON.stringify(currentWeatherData));
 
 }
+var uvIndex_local;
 //########## This function is used to obtain UV Index of the given city ###########
 function getUVIndex(lat,lon)
 {
-    //var uviUrl= "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat+ "&lon="+ lon+ "&exclude=current,minutely,hourly,alerts&appid=" + APIKey;
-    var uviUrl="https://api.openweathermap.org/data/2.5/onecall?lat=-33.8679&lon=151.2073&exclude=current,minutely,hourly,alerts&appid=" + APIKey;
-    var uvIndex_local;
+    var uviUrl= "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat+ "&lon="+ lon+ "&exclude=current,minutely,hourly,alerts&appid=" + APIKey;
+    
     fetch(uviUrl).then(function (response){
         if(response.ok)
         {
             response.json().then(function (data) {
             uvIndex_local=data.daily[0].uvi;
+            console.log(uvIndex+"UV INdex line 136");
             console.log("uvi" +uvIndex_local);
             uvIndex=uvIndex_local;
             // var uviP=$('<p>');
@@ -161,13 +172,13 @@ function getUVIndex(lat,lon)
 function getWeatherForecast(searchTerm)
 {
     //var forecastUrl="http://api.openweathermap.org/data/2.5/forecast/daily?q="+searchTerm+"&cnt=5&appid="+ APIKey;
-    var forecastUrl="http://api.openweathermap.org/data/2.5/forecast?q="+searchTerm+"&cnt=5&units=metric&appid="+APIKey;
+    var forecastUrl="http://api.openweathermap.org/data/2.5/forecast?q="+searchTerm+"&units=metric&appid="+APIKey;
 
     fetch(forecastUrl).then(function (response){
         if(response.ok)
         {
             response.json().then(function (data) {
-            console.log(data);
+            // for (i)
             });
         }
 
@@ -189,17 +200,7 @@ function getWeatherForecast(searchTerm)
 
 }
 
-function displayWeatherData()
-{
-    var cityH2=$('<h2>');
-    var temperatureP=$('<p>');
-    var windP=$('<p>');
-    var humidityP=$('<p>');
-    var uviP=$('<p>');
-    
-    cityH2.text()
 
-}
 
 
 
