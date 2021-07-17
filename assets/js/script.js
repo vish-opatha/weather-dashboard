@@ -1,4 +1,4 @@
-var APIKey="975b6c913fd1bac8d093c8550b538f26";
+
 var searchCityInput = $('input[name="city"]');
 var searchBtn =$('#search');
 //var cityLatitute = 0;
