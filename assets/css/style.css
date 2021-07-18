@@ -53,7 +53,10 @@ button{
     width: 100%;
     text-align:center;
 }
-
+.fc-div
+{
+    width:20%;
+}
 /* #search-form
 {
 
@@ -65,4 +68,8 @@ button{
 } */
 #search-form div{
     border-top: 1px solid blue;
+}
+
+.hide{
+    display:none;
 }
