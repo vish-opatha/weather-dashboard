@@ -1,25 +1,24 @@
 
-var searchCityInput = $('input[name="city"]');
-var searchBtn =$('#search');
-//var cityLatitute = 0;
-//var cityLongitude = 0;
+var searchCityInput = $('input[name="city"]'); // used
+var searchBtn =$('#search'); //used
+
 var cityLatitute=0; var cityLongitude=0;
 var weatherDisplay=$('#display-section');
-var searchTerm;
+var searchTerm; //used
 
-var temp;
-var wind;
-var humidity;
+var temp;//used
+var wind;//used
+var humidity;//used
 var uvIndex;
-var cloud;
-var weatherCon;
-var todayDate=moment().format("DD/MM/YYYY");
+var weatherCon;//used
+var todayDate=moment().format("YYYY-MM-DD");
 
 var headerCity=$('#header-tag');
 var tempSpan=$('#temp');
 var windSpan=$('#wind');
 var humiditySpan=$('#humidity');
 var uviSpan=$('#uvi');
+var weatherIcon=$('<img>');
 
 var currentWeatherData=[];
 
@@ -27,7 +26,9 @@ var currentWeatherData=[];
 searchBtn.on('click',function(event)
 {
     event.preventDefault();
-    searchTerm = searchCityInput.val();
+    var cityInput= searchCityInput.val();
+    var c=cityInput.charAt(0).toUpperCase()+cityInput.slice(1).toLowerCase();
+    searchTerm=c.toString();
         
     if(searchTerm==="")
     {
@@ -38,9 +39,6 @@ searchBtn.on('click',function(event)
     {
         getCurrentWeather(searchTerm);
         getWeatherForecast(searchTerm);
-       
-        
-        //displayCurrentWeather();
     }
 });
 
@@ -49,96 +47,92 @@ function getCurrentWeather(searchTerm)
 {
     var currentDataUrl="http://api.openweathermap.org/data/2.5/weather?q=" + searchTerm+ "&units=metric&appid=" + APIKey;
     
-    //console.log(currentDataUrl); //==================================
-
-        fetch(currentDataUrl)
-            .then(function (response){
-                if(response.ok)
-                {
-                    response.json().then(function (data) {
-                        console.log(data);
-                        temp=data.main.temp;
-                        wind=data.wind.speed;
-                        humidity=data.main.humidity;
-                        // weatherCon =data.weather[0].description;
-                        weatherCon =data.weather[0].icon;
-                        console.log(todayDate);
-                        console.log("=======================");
-                        console.log(data);
-                        
-                        cityLatitute = JSON.stringify(data.coord.lat);
-                        cityLongitude= JSON.stringify(data.coord.lon);
-                        saveCurrentWeatherData(searchTerm);
-                        
-                        
-                        
-
-                        displayCurrentWeather(searchTerm,temp,wind,humidity,weatherCon,uvIndex);
-                        getUVIndex(cityLatitute,cityLongitude);
-
-                        
-                       
-                        
-                        
-                    });
-                }
-
-                else if(response.status==404)
-                {
-                    //Window.alert('Error: ' + response.statusText);
-                    window.alert("This city does not exist");
-                }
-
-                else
-                {
-                    window.alert("Error"+response.statusText);
-                }
-            })
-            .catch(function (error)
+    fetch(currentDataUrl).then(function (response)
+    {
+        if(response.ok)
+        {
+            response.json().then(function (data) 
             {
-                alert("Error :"+error);
-            });
-           
-}
-var count=0;
-function displayCurrentWeather(city,temp,wind,humidity,weatherCon,uvIndex)
-{
+                temp = data.main.temp; 
+                wind = data.wind.speed; 
+                humidity = data.main.humidity; 
+                weatherCon = data.weather[0].icon;
+              
+                cityLatitute = JSON.stringify(data.coord.lat);
+                cityLongitude= JSON.stringify(data.coord.lon);
 
-    var weatherIcon=$('<img>');
+                //saveCurrentWeatherData(searchTerm);                     
+                displayCurrentWeather(searchTerm,temp,wind,humidity,weatherCon);
+                getUVIndex(cityLatitute,cityLongitude);            
+            });
+        }
+
+        else if(response.status==404)
+        {
+            window.alert("This city does not exist! Please check again.");
+        }
+
+        else
+        {
+            window.alert("Error"+response.statusText);
+        }})
+        
+        .catch(function (error)
+        {
+            alert("Error :"+error);
+        });
+}
+
+//########## This function displays the current weather data (except UV-Index) of a given city ##########
+function displayCurrentWeather(city,temp,wind,humidity,weatherCon)
+{
+    var cityButton=$('<button>');
+    var headerT=$('#header-tag');
+    var buttons=$('#search-history');
+
     headerCity.text(city +" "+ todayDate+" ");
     tempSpan.text(temp);
     windSpan.text(wind);
-    humiditySpan.text(humidity);
-   
-    var cityButton=$('<button>');
-    var headerT=$('#header-tag');
+    humiditySpan.text(humidity);  
+    
     cityButton.text(city);
     cityButton.attr("city",city);
     cityButton.addClass('btn btn-secondary btn-sm');
     weatherIcon.attr("src","http://openweathermap.org/img/w/"+weatherCon+".png");
-    headerT.append(weatherIcon);
-    //headerCity.append(weatherIcon);
-  
-    var buttons=$('#search-history');
 
-   
+    headerT.append(weatherIcon);
     buttons.append(cityButton);
-    
 }
 
 function saveCurrentWeatherData(city)
 {
-    var cityToLowerCase = city.toLowerCase();
-    var weatherData=temp+","+wind+","+humidity+","+weatherCon;
-    var cityToLowerCase = [];
-    cityToLowerCase.push(weatherData);
-    currentWeatherData.push(city);
+    var cityTemp = city;
+    var city = [];
+    city[0] = todayDate;
+    city[1] = temp;
+    city[2] = wind;
+    city[3] = humidity;
+    city[4] = "http://openweathermap.org/img/w/"+weatherCon+".png"
+    city[5] = uvIndex_local;
+    city[6]=uviColor;
 
-    localStorage.setItem(city,JSON.stringify(cityToLowerCase));
-    localStorage.setItem('currentWeatherCity',JSON.stringify(currentWeatherData));
+    localStorage.setItem(cityTemp,JSON.stringify(city));
 
+    if(currentWeatherData.includes(cityTemp))
+    {
+        localStorage.setItem('currentWeatherCity',JSON.stringify(currentWeatherData));
+    }
+
+    else
+    {
+        currentWeatherData.push(cityTemp);
+        localStorage.setItem('currentWeatherCity',JSON.stringify(currentWeatherData));
+    }
+    
 }
+
 var uvIndex_local;
+var uviColor;
 //########## This function is used to obtain UV Index of the given city ###########
 function getUVIndex(lat,lon)
 {
@@ -149,29 +143,27 @@ function getUVIndex(lat,lon)
         {
             response.json().then(function (data) {
             uvIndex_local=data.daily[0].uvi;
-            console.log(uvIndex+"UV INdex line 136");
-            console.log("uvi" +uvIndex_local);
             uviSpan.text(uvIndex_local);
            
             if(uvIndex_local<3)
             {
-                uviSpan.css("background-color", "green");
+                uviColor="green"; 
+                uviSpan.css("background-color", uviColor);   
             }
 
             else if(uvIndex_local>=3 && uvIndex_local<6)
             {
-                uviSpan.css("background-color", "yellow");
+                uviColor="yellow";
+                uviSpan.css("background-color", uviColor);   
             }
 
             else
             {
-                uviSpan.css("background-color", "red");
+                uviColor="red";
+                uviSpan.css("background-color", uviColor);  
             }
             
-            
-
-
-
+            saveCurrentWeatherData(searchTerm); 
             });
         }
 
@@ -203,8 +195,7 @@ function getWeatherForecast(searchTerm)
             var numberOfForecasts = data.list.length;
             var timeStamp=data.list[numberOfForecasts-1].dt_txt.split(" ");
             var a =timeStamp[1];
-        
-            
+
             var fcDays=["day1","day2","day3","day4","day5"];
             var j=0;
             for(i=0;i<40;i++)

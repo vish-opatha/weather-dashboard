@@ -73,3 +73,18 @@ button{
 .hide{
     display:none;
 }
+.fc-div{
+    background-color: rgb(57, 94, 91);
+    color:white
+}
+
+.fc-row
+{
+    text-align: center;
+}
+
+#uvi{
+    padding-left:2px;
+    padding-right: 2px;
+    border-radius: 2px;
+}
