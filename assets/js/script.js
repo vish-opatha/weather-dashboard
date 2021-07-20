@@ -201,7 +201,7 @@ function getUVIndex(lat,lon)
 //########## This function is used to obtain the weather forecast for five days for a given city ###########
 function getWeatherForecast(searchTerm)
 {
-    var forecastUrl="http://api.openweathermap.org/data/2.5/forecast?q="+searchTerm+"&units=metric&appid="+APIKey;
+    var forecastUrl="https://api.openweathermap.org/data/2.5/forecast?q="+searchTerm+"&units=metric&appid="+APIKey;
     var fcDate; var fcTemp; var fcHumidity; var fcDescription; var fcWind;
     fetch(forecastUrl).then(function (response){
         if(response.ok)
