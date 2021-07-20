@@ -37,6 +37,11 @@ h1{
     
 }
 
+button{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 input,h3, button{
     
     display:block;
@@ -87,4 +92,12 @@ button{
     padding-left:2px;
     padding-right: 2px;
     border-radius: 2px;
+}
+
+.hide{
+    display:none;
+}
+
+#display-section{
+    margin-top: 10px;
 }

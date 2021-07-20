@@ -1,4 +1,4 @@
- // used
+var APIKey="975b6c913fd1bac8d093c8550b538f26";// used
 var searchCityInput = $('input[name="city"]'); // used
 var searchBtn =$('#search'); //used
 
@@ -31,6 +31,7 @@ var fcDays=["day1","day2","day3","day4","day5"];
 searchBtn.on('click',function(event)
 {
     event.preventDefault();
+    weatherDisplay.removeClass('hide');
     var cityInput= searchCityInput.val();
     var c=cityInput.charAt(0).toUpperCase()+cityInput.slice(1).toLowerCase();
     searchTerm=c.toString();
