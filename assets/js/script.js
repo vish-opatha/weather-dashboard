@@ -1,4 +1,4 @@
-var APIKey="975b6c913fd1bac8d093c8550b538f26"; // used
+ // used
 var searchCityInput = $('input[name="city"]'); // used
 var searchBtn =$('#search'); //used
 
@@ -19,10 +19,13 @@ var windSpan=$('#wind');
 var humiditySpan=$('#humidity');
 var uviSpan=$('#uvi');
 var weatherIcon=$('<img>');
+var historyButtons=$('#search-history');
+var headerT=$('#header-tag');
 
 var currentWeatherData=[];
 var uvIndex_local;
 var uviColor;
+var fcDays=["day1","day2","day3","day4","day5"];
 
 //########## Connect to the API and obtain weather data on the click event ###########
 searchBtn.on('click',function(event)
@@ -87,22 +90,33 @@ function getCurrentWeather(searchTerm)
 //########## This function displays the current weather data (except UV-Index) of a given city ##########
 function displayCurrentWeather(city,temp,wind,humidity,weatherCon)
 {
-    var cityButton=$('<button>');
-    var headerT=$('#header-tag');
-    var buttons=$('#search-history');
+    
+    
+    
 
     headerCity.text(city +" "+ todayDate+" ");
     tempSpan.text(temp);
     windSpan.text(wind);
     humiditySpan.text(humidity);  
     
-    cityButton.text(city);
-    cityButton.attr("city",city);
-    cityButton.addClass('btn btn-secondary btn-sm');
+    
     weatherIcon.attr("src","http://openweathermap.org/img/w/"+weatherCon+".png");
 
     headerT.append(weatherIcon);
-    buttons.append(cityButton);
+
+    if(currentWeatherData.includes(city))
+    {
+        return;
+    }
+    else
+    {
+        var cityButton=$('<button>');
+        cityButton.addClass('btn btn-secondary btn-sm');
+        cityButton.text(city);
+        cityButton.attr("city",city);
+        historyButtons.append(cityButton);
+    }
+    
 }
 
 function saveCurrentWeatherData(city)
@@ -219,7 +233,7 @@ function getWeatherForecast(searchTerm)
                     fcDivision.children().eq(3).children().eq(0).text(fcWind);
                     fcDivision.children().eq(4).children().eq(0).text(fcHumidity);
                     fcIcon.attr("src","http://openweathermap.org/img/w/"+fcDescription+".png");
-                    var c = [fcDate,fcTemp,"http://openweathermap.org/img/w/"+fcDescription+".png",fcWind];
+                    var c = [fcDate,fcTemp,"http://openweathermap.org/img/w/"+fcDescription+".png",fcWind,fcHumidity];
                     fcData.push(c);
                     j++;
                 }
@@ -245,7 +259,74 @@ function getWeatherForecast(searchTerm)
     });
 }
 
+historyButtons.on('click','button',function(event)
+{
+    event.preventDefault();
+    var searchCity = $(event.target).attr('city');
 
+    var currentWeather = JSON.parse(localStorage.getItem(searchCity));
+    var forecastWeather = JSON.parse(localStorage.getItem("fc"+searchCity));
+
+
+
+
+    headerCity.text(searchCity +" "+ todayDate+" ");
+    tempSpan.text(currentWeather[1]);
+    windSpan.text(currentWeather[2]);
+    humiditySpan.text(currentWeather[3]);  
+    
+    var weatherIcon=$('<img>');
+    weatherIcon.attr("src",currentWeather[4]);
+    headerT.append(weatherIcon);
+    uviSpan.text(currentWeather[5]);
+
+    var a = currentWeather[5];
+
+    if(a<3)
+            {
+                uviColor="green"; 
+                uviSpan.css("background-color", uviColor);   
+            }
+
+            else if(a>=3 && a<6)
+            {
+                uviColor="yellow";
+                uviSpan.css("background-color", uviColor);   
+            }
+
+            else
+            {
+                uviColor="red";
+                uviSpan.css("background-color", uviColor);  
+            }
+
+
+
+            for(i=0;i<forecastWeather.length;i++)
+            {
+                {
+                    var fcDivision =$("#"+fcDays[i]);
+                    var fcIcon=fcDivision.children().eq(1);
+                    var dayForecast=forecastWeather[i];
+                    
+                    fcDate=dayForecast[0];
+                    fcTemp=dayForecast[1];
+                    fcDescription=dayForecast[2];
+                    fcWind=dayForecast[3];
+                    fcHumidity=dayForecast[4];              
+
+                    fcDivision.children().eq(0).children().eq(0).text(fcDate);
+                    fcDivision.children().eq(2).children().eq(0).text(fcTemp);
+                    fcDivision.children().eq(3).children().eq(0).text(fcWind);
+                    fcDivision.children().eq(4).children().eq(0).text(fcHumidity);
+                    fcIcon.attr("src",fcDescription);  
+                }
+            }
+
+
+
+
+});
 
 
 
