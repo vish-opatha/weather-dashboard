@@ -101,7 +101,7 @@ function displayCurrentWeather(city,temp,wind,humidity,weatherCon)
     humiditySpan.text(humidity);  
     
     
-    weatherIcon.attr("src","http://openweathermap.org/img/w/"+weatherCon+".png");
+    weatherIcon.attr("src","https://openweathermap.org/img/w/"+weatherCon+".png");
 
     headerT.append(weatherIcon);
 
@@ -233,8 +233,8 @@ function getWeatherForecast(searchTerm)
                     fcDivision.children().eq(2).children().eq(0).text(fcTemp);
                     fcDivision.children().eq(3).children().eq(0).text(fcWind);
                     fcDivision.children().eq(4).children().eq(0).text(fcHumidity);
-                    fcIcon.attr("src","http://openweathermap.org/img/w/"+fcDescription+".png");
-                    var c = [fcDate,fcTemp,"http://openweathermap.org/img/w/"+fcDescription+".png",fcWind,fcHumidity];
+                    fcIcon.attr("src","https://openweathermap.org/img/w/"+fcDescription+".png");
+                    var c = [fcDate,fcTemp,"https://openweathermap.org/img/w/"+fcDescription+".png",fcWind,fcHumidity];
                     fcData.push(c);
                     j++;
                 }
