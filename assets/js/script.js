@@ -51,7 +51,7 @@ searchBtn.on('click',function(event)
 //########## This function obtains the current weather data (except UV-Index) of a given city ##########
 function getCurrentWeather(searchTerm)
 {
-    var currentDataUrl="http://api.openweathermap.org/data/2.5/weather?q=" + searchTerm+ "&units=metric&appid=" + APIKey;
+    var currentDataUrl="https://api.openweathermap.org/data/2.5/weather?q=" + searchTerm+ "&units=metric&appid=" + APIKey;
     
     fetch(currentDataUrl).then(function (response)
     {
@@ -128,7 +128,7 @@ function saveCurrentWeatherData(city)
     city[1] = temp;
     city[2] = wind;
     city[3] = humidity;
-    city[4] = "http://openweathermap.org/img/w/"+weatherCon+".png"
+    city[4] = "https://openweathermap.org/img/w/"+weatherCon+".png"
     city[5] = uvIndex_local;
     city[6]= uviColor;
 
