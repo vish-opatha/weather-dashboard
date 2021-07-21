@@ -272,6 +272,7 @@ historyButtons.on('click','button',function(event)
     var forecastWeather = JSON.parse(localStorage.getItem("fc"+searchCity));
     var weatherIcon=$('<img>');
 
+    searchCityInput.val(searchCity);
     headerCity.text(searchCity +" "+ todayDate+" ");
     tempSpan.text(currentWeather[1]);
     windSpan.text(currentWeather[2]);
