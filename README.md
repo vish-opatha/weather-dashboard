@@ -1,115 +1,47 @@
 # Weather Dashboard
 ## Overview
 This is a project carried out to create dashboard to display current and forecast weather data upto 5 days  for a given city. It is implemented by using HTML, CSS and jquery. Majority of the styles and layouts were done using the Bootstrap framework. Moment Javascript is used to manupulate the date and time when required.
-
 Apart from that, an Openweather API was used to fetch data related to weather of a given city.
+
 ## Important Links
 Refer to the following links:
 * [Weather Dashboard - Deployed page](https://vish-opatha.github.io/day-planner/)
 * [Weather Dashboard - Github repository](https://github.com/vish-opatha/weather-dashboard)
 ## Mock-up
 * This is the index page view.
-![Main view](./assets/images/main.png)
+![Main view](./assets/images/index-page.png)
 
+* This is the message that will appear when the user tries search without entering a city.
+![Empty city validation](./assets/images/empty-city-validate.jpeg)
 
-
-
-
-
-
-
-
-
-
-# 06 Server-Side APIs: Weather Dashboard
-
-https://vish-opatha.github.io/weather-dashboard/
-
-## Your Task
-
-Third-party APIs allow developers to access their data and functionality by making requests with specific parameters to a URL. Developers are often tasked with retrieving data from another application's API and using it in the context of their own. Your challenge is to build a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS.
-
-Use the [OpenWeather One Call API](https://openweathermap.org/api/one-call-api) to retrieve weather data for cities. Read through the documentation for setup and usage instructions. You will use `localStorage` to store any persistent data. For more information on how to work with the OpenWeather API, refer to the [Full-Stack Blog on how to use API keys](https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys).
-https://www.verywellhealth.com/know-your-uv-index-1069524
-## User Story
-
-```
-AS A traveler
-I WANT to see the weather outlook for multiple cities
-SO THAT I can plan a trip accordingly
-```
-
-## Acceptance Criteria
-
-```
-GIVEN a weather dashboard with form inputs
-WHEN I search for a city
-THEN I am presented with current and future conditions for that city and that city is added to the search history
-WHEN I view current weather conditions for that city
-THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-WHEN I view the UV index
-THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-WHEN I view future weather conditions for that city
-THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
-WHEN I click on a city in the search history
-THEN I am again presented with current and future conditions for that city
-```
-
-## Mock-Up
-
-The following image shows the web application's appearance and functionality:
-
-![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for Atlanta.](./Assets/06-server-side-apis-homework-demo.png)
-
-## Grading Requirements
-
-This homework is graded based on the following criteria: 
-
-### Technical Acceptance Criteria: 40%
-
-* Satisfies all of the above acceptance criteria plus the following:
-
-    * Uses the OpenWeather API to retrieve weather data.
-
-    * Uses `localStorage` to store persistent data.
-
-### Deployment: 32%
-
-* Application deployed at live URL.
-
-* Application loads with no errors.
-
-* Application GitHub URL submitted.
-
-* GitHub repository that contains application code.
-
-### Application Quality: 15%
-
-* Application user experience is intuitive and easy to navigate.
-
-* Application user interface style is clean and polished.
-
-* Application resembles the mock-up functionality provided in the homework instructions.
-
-### Repository Quality: 13%
-
-* Repository has a unique name.
-
-* Repository follows best practices for file structure and naming conventions.
-
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-* Repository contains multiple descriptive commit messages.
-
-* Repository contains quality readme file with description, screenshot, and link to deployed application.
-
-## Review
-
-You are required to submit BOTH of the following for review:
-
-* The URL of the functional, deployed application.
-
-* The URL of the GitHub repository. Give the repository a unique name and include a readme describing the project.
+* This is the message that will appear when the user tries to enter a non-existing city (example :xyz)
+![Enter non-existing city](./assets/images/nonexisting-city.jpeg)
+## Technical Acceptance - Work Done
+1. User is given a place to provide an input for weather information.
+2. User input is validated against empty values and they are formatted to camel case, no matter how the user enters them (Final output will be in camel case).
+3. Once a proper input is received, the application connects with openweather API and fetch data related to current weather first which has temperature, wind, humidity, and the weather condition icon. Also it fetches latitude and longitude in order to fetch UV Index using a different querry.
+4. Then UV Index is fetched and colour codes are defined to represent the severity of the index.
+5. The given link was the reference to decide upon the color codes for UV Index !(https://www.verywellhealth.com/know-your-uv-index-1069524).
+6. Apart from that, user is presented with 5 day weather forecast for the given city and data is fetched using a different endpoint. 
+7. Current weather data and weather forecast data are only displayed when fetching is done properly.
+8. All the data are stored in local storage and array format is used.
+9. Buttons are created at each and every time when a user search for a new city at a given time, but buttons would not be redundant, if it is created in the search history before.
+10. When the user clicks a city button that he/she has previously searched for then the user is presented with data local storage.
+11. User alerts are included as per the requirement to educate the user.
+## Deployment - Work Done
+1. Application is deployed at live URL using Github pages, and the link is in the "Important links" section.
+2. No errors were found in loading and executing the functions.
+3. Link to the Github URL is given and the repository and it contains the complete code.
+## Application Quality - Work Done
+1. Deployed page resembles the mock-up in design and functionality.
+2. Deployed page is easy to understand and navigate.
+3. Application is designed in a way that it behaves responsively.
+## Repository Quality - Work Done
+1. Repository is named as weather-dashboard.
+2. Regarding the folder structure, "Assets" includes separate folders for images,CSS and javascript.
+4. Tags are indented accordingly and comments are included while following the best practices for naming conventions.
+5. Changes were committed multiple times with messages.
 
 - - -
-© 2021 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
+📝 Created by Vish Opatha (Last updated on 21 July 2021).
+
