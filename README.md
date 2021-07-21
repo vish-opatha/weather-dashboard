@@ -1,4 +1,25 @@
-# weather-dashboard
+# Weather Dashboard
+## Overview
+This is a project carried out to create dashboard to display current and forecast weather data upto 5 days  for a given city. It is implemented by using HTML, CSS and jquery. Majority of the styles and layouts were done using the Bootstrap framework. Moment Javascript is used to manupulate the date and time when required.
+
+Apart from that, an Openweather API was used to fetch data related to weather of a given city.
+## Important Links
+Refer to the following links:
+* [Weather Dashboard - Deployed page](https://vish-opatha.github.io/day-planner/)
+* [Weather Dashboard - Github repository](https://github.com/vish-opatha/weather-dashboard)
+## Mock-up
+* This is the index page view.
+![Main view](./assets/images/main.png)
+
+
+
+
+
+
+
+
+
+
 
 # 06 Server-Side APIs: Weather Dashboard
 
