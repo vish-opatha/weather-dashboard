@@ -5,11 +5,11 @@ Apart from that, an Openweather API was used to fetch data related to weather of
 
 ## Important Links
 Refer to the following links:
-* [Weather Dashboard - Deployed page](https://vish-opatha.github.io/day-planner/)
+* [Weather Dashboard - Deployed page](https://vish-opatha.github.io/weather-dashboard/)
 * [Weather Dashboard - Github repository](https://github.com/vish-opatha/weather-dashboard)
 ## Mock-up
 * This is the index page view.
-![Main view](./assets/images/index-page.png)
+![Main view](./assets/images/index-page.jpg)
 
 * This is the message that will appear when the user tries search without entering a city.
 ![Empty city validation](./assets/images/empty-city-validate.jpeg)
