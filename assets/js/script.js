@@ -38,7 +38,8 @@ function getCurrentWeather(searchTerm)
                 cityLongitude= JSON.stringify(data.coord.lon);
                    
                 displayCurrentWeather(searchTerm,temp,wind,humidity,weatherCon);
-                getUVIndex(cityLatitute,cityLongitude);            
+                getUVIndex(cityLatitute,cityLongitude);
+                getWeatherForecast(searchTerm);            
             });
         }
 
@@ -259,7 +260,6 @@ searchBtn.on('click',function(event)
     else
     {
         getCurrentWeather(searchTerm);
-        getWeatherForecast(searchTerm);
     }
 });
 
