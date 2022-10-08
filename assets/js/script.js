@@ -1,4 +1,4 @@
-var APIKey="975b6c913fd1bac8d093c8550b538f26";
+let APIKey=secrets.APIKey;
 var searchTerm; // This is the variable to store the user input
 
 var temp; var wind; var humidity; var uvIndex_local; var weatherCon; var cityLatitute=0; var cityLongitude=0; var uviColor;
